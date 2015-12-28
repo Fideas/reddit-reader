@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Reddit Reader</string>
 
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!-- Menu's Strings -->
+    <string name="action_subscribe">Subscribe</string>
+
+    <string name="banner_ad_unit_id" translatable="false">
+        ca-app-pub-3940256099942544/6300978111</string>
 </resources>
