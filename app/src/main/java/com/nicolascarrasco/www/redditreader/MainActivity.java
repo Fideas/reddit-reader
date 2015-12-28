@@ -9,11 +9,19 @@ import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.nicolascarrasco.www.redditreader.client.RedditRestClient;
+
+import org.json.JSONException;
+
+import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TOKEN_URL = "access_token";
+    private static final String DEVICE_ID = UUID.randomUUID().toString();
 
     @Bind(R.id.adView)
     AdView mAdView;
@@ -23,12 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        //Add your own device Id if testing on a real device
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("F178C54519B81461A49075E590A1E90C")
-                .build();
-        mAdView.loadAd(adRequest);
+        loadAdBanner();
+        getAuthToken();
     }
 
     @Override
@@ -48,7 +52,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void loadAdBanner() {
+        //Add your own device Id if testing on a real device
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("F178C54519B81461A49075E590A1E90C")
+                .build();
+        mAdView.loadAd(adRequest);
+    }
+
     public void launchSubscribeSetting(View unusedView) {
         startActivity(new Intent(this, SubscribeActivity.class));
+    }
+
+    private void getAuthToken() {
+        try {
+            new RedditRestClient(getApplicationContext()).getToken(TOKEN_URL, DEVICE_ID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
