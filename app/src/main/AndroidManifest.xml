@@ -23,6 +23,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <provider
+            android:name=".provider.RedditProvider"
+            android:authorities="com.nicolascarrasco.www.redditreader.data.RedditProvider"
+            android:exported="false" />
     </application>
 
 </manifest>
