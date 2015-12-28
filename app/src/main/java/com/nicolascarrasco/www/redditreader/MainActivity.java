@@ -1,8 +1,10 @@
 package com.nicolascarrasco.www.redditreader;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
@@ -35,7 +37,18 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void launchSubscribeSetting(View unusedView) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_subscribe:
+                startActivity(new Intent(this, SubscribeActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
+    public void launchSubscribeSetting(View unusedView) {
+        startActivity(new Intent(this, SubscribeActivity.class));
     }
 }

@@ -4,6 +4,9 @@
     <!-- Main Activity's Strings -->
     <string name="button_subscribe">Subscribe to Subreddits</string>
 
+    <!-- Subscribe Activity's Strings -->
+    <string name="title_subscribe_activity">Your Subscriptions</string>
+
     <!-- Menu's Strings -->
     <string name="action_subscribe">Subscribe</string>
 
