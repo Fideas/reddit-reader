@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Reddit Reader</string>
 
+    <!-- Main Activity's Strings -->
+    <string name="button_subscribe">Subscribe to Subreddits</string>
+
     <!-- Menu's Strings -->
     <string name="action_subscribe">Subscribe</string>
 
