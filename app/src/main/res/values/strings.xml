@@ -13,4 +13,10 @@
     <!-- Test Ads' Strings -->
     <string name="banner_ad_unit_id" translatable="false">
         ca-app-pub-3940256099942544/6300978111</string>
+
+    <!-- Subscribe Dialog's Strings -->
+    <string name="subscribe_dialog_title">Add Subscription</string>
+    <string name="subscribe_dialog_positive_button">Add</string>
+    <string name="subscribe_dialog_negative_button">Cancel</string>
+    <string name="subscribe_dialog_hint">Subreddit</string>
 </resources>
