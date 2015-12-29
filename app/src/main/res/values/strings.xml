@@ -19,4 +19,9 @@
     <string name="subscribe_dialog_positive_button">Add</string>
     <string name="subscribe_dialog_negative_button">Cancel</string>
     <string name="subscribe_dialog_hint">Subreddit</string>
+    <string name="subscribe_dialog_page_not_found_error">Couldn\'t find the subreddit</string>
+    <string name="subscribe_dialog_timeout_error">
+        Connection to the server timed out. Please try again later</string>
+    <string name="subscribe_dialog_repeated_value_error">
+        You have already subscribed to this subreddit</string>
 </resources>

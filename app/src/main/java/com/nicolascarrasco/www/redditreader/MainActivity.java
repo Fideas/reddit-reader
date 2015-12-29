@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TOKEN_URL = "access_token";
+    private static final String TOKEN_URL = "v1/access_token";
     private static final String DEVICE_ID = UUID.randomUUID().toString();
 
     @Bind(R.id.adView)
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getAuthToken() {
         try {
-            new RedditRestClient(getApplicationContext()).getToken(TOKEN_URL, DEVICE_ID);
+            new RedditRestClient().getToken(TOKEN_URL, DEVICE_ID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
