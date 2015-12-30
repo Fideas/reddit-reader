@@ -6,6 +6,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nicolascarrasco.www.redditreader.Utility;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,7 +84,7 @@ public class RedditRestClient {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i(LOG_TAG, "response: " + response.toString());
                 try {
-                    String name = response.getString(NAME_KEY);
+                    String name = Utility.formatSubredditName(response.getString(NAME_KEY));
                     Log.i(LOG_TAG, "name: " + name);
                     listener.OnGetSubredditResponse(true, name);
                 } catch (JSONException j) {
