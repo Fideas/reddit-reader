@@ -9,12 +9,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.nicolascarrasco.www.redditreader.SubscribeActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_display_subscriptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_subscription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_white_24dp"/>
+        android:src="@drawable/ic_add_white_24dp" />
 
 </FrameLayout>

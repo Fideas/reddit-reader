@@ -7,34 +7,54 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.nicolascarrasco.www.redditreader.adapter.SubscriptionAdapter;
 import com.nicolascarrasco.www.redditreader.client.RedditRestClient;
 import com.nicolascarrasco.www.redditreader.data.RedditProvider;
 import com.nicolascarrasco.www.redditreader.data.SubscriptionsColumns;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SubscribeActivity extends AppCompatActivity implements RedditRestClient.ResponseListener {
+public class SubscribeActivity extends AppCompatActivity
+        implements RedditRestClient.ResponseListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String PAGE_NOT_FOUND_ERROR = "404";
     private static final String TIMEOUT_ERROR = "0";
     private static final String REPEATED_VALUE_ERROR = "repeated-value-error";
-
     private static final String LOG_TAG = SubscribeActivity.class.getSimpleName();
-    AddSubscriptionDialogFragment mDialogFragment;
+    private static final int SUBSCRIPTION_LOADER_ID = 0;
+
+    @Bind(R.id.recycler_view_display_subscriptions)
+    RecyclerView mRecyclerView;
+
+    private AddSubscriptionDialogFragment mDialogFragment;
+    private SubscriptionAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe);
         ButterKnife.bind(this);
+
+        mAdapter = new SubscriptionAdapter();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
+
+        getSupportLoaderManager().initLoader(SUBSCRIPTION_LOADER_ID, null, this);
+
     }
 
     @OnClick(R.id.fab_add_subscription)
@@ -108,6 +128,27 @@ public class SubscribeActivity extends AppCompatActivity implements RedditRestCl
         ContentValues values = new ContentValues();
         values.put(SubscriptionsColumns.SR_NAME, name);
         return getContentResolver().insert(RedditProvider.Subscriptions.CONTENT_URI, values);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(
+                this,
+                RedditProvider.Subscriptions.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
     }
 
     public static class AddSubscriptionDialogFragment extends android.support.v4.app.DialogFragment {

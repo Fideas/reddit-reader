@@ -24,4 +24,8 @@
         Connection to the server timed out. Please try again later</string>
     <string name="subscribe_dialog_repeated_value_error">
         You have already subscribed to this subreddit</string>
+
+    <!-- Console error messages -->
+    <string name="cursor_move_to_position_error" translatable="false">
+        Could not move cursor to position\u0020</string>
 </resources>

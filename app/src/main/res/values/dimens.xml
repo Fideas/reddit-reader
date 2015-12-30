@@ -8,4 +8,7 @@
     <dimen name="dialog_vertical_inner_padding">20dp</dimen>
     <dimen name="dialog_horizontal_padding">24dp</dimen>
     <dimen name="dialog_vertical_outer_padding">24dp</dimen>
+
+    <!-- Lists' dimensions -->
+    <dimen name="list_item_height">72dp</dimen>
 </resources>
