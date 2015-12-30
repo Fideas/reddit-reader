@@ -1,15 +1,23 @@
 package com.nicolascarrasco.www.redditreader;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.nicolascarrasco.www.redditreader.client.RedditRestClient;
+import com.nicolascarrasco.www.redditreader.data.FetchPostTask;
+import com.nicolascarrasco.www.redditreader.data.Post;
+import com.nicolascarrasco.www.redditreader.data.RedditProvider;
+import com.nicolascarrasco.www.redditreader.data.SubscriptionsColumns;
 
 import org.json.JSONException;
 
@@ -18,13 +26,15 @@ import java.util.UUID;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FetchPostTask.TaskDelegate {
 
     private static final String TOKEN_URL = "v1/access_token";
     private static final String DEVICE_ID = UUID.randomUUID().toString();
 
-    @Bind(R.id.adView)
-    AdView mAdView;
+    @Bind(R.id.card_view_post) CardView mCardView;
+    @Bind(R.id.adView) AdView mAdView;
+    @Bind(R.id.button_subscribe) AppCompatButton mSubscribeButton;
+    @Bind(R.id.post_title) TextView mTitleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         loadAdBanner();
         getAuthToken();
+        fetchPost();
     }
 
     @Override
@@ -71,5 +82,28 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void fetchPost() {
+        Cursor cursor = getContentResolver().query(RedditProvider.Subscriptions.randomSubscription,
+                null,
+                null,
+                null,
+                null);
+        if (cursor != null && cursor.moveToFirst()) {
+            //keep going
+            String subreddit = cursor.getString(
+                    cursor.getColumnIndex(SubscriptionsColumns.SR_NAME));
+            new FetchPostTask(this).execute(subreddit);
+        } else {
+            mCardView.setVisibility(View.GONE);
+            mSubscribeButton.setVisibility(View.VISIBLE);
+        }
+        Utility.closeCursor(cursor);
+    }
+
+    @Override
+    public void taskCompletitionResult(Post result) {
+        mTitleTextView.setText(result.getTitle());
     }
 }

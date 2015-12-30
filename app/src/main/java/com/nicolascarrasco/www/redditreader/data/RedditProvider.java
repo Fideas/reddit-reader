@@ -41,6 +41,14 @@ public final class RedditProvider {
                 type = "vnd.android.cursor.item/subscription")
         public static final Uri CONTENT_URI = buildUri(Path.SUBSCRIPTIONS);
 
+        //Random URI used to query a random subscription
+        @ContentUri(
+                path = Path.SUBSCRIPTIONS + "/random",
+                type = "vnd.android.cursor.item/subscription",
+                defaultSort = "RANDOM()",
+                limit = "1")
+        public static final Uri randomSubscription = buildUri(Path.SUBSCRIPTIONS, "random");
+
         //With name URI used to delete by name
         @InexactContentUri(
                 name = "SUBSCRIPTIONS_SR_NAME",
