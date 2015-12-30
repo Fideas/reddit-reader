@@ -1,5 +1,6 @@
 package com.nicolascarrasco.www.redditreader.adapter;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,10 +10,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.nicolascarrasco.www.redditreader.R;
+import com.nicolascarrasco.www.redditreader.data.RedditProvider;
 import com.nicolascarrasco.www.redditreader.data.SubscriptionsColumns;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Nicolás Carrasco on 29/12/2015.
@@ -21,8 +24,13 @@ import butterknife.ButterKnife;
 public class SubscriptionAdapter extends
         RecyclerView.Adapter<SubscriptionAdapter.SubscriptionViewHolder> {
 
-    private Cursor mCursor;
     private final static String CURSOR_MOVE_ERROR = "Could not move cursor to position ";
+    private Cursor mCursor;
+    private Context mContext;
+
+    public SubscriptionAdapter(Context context) {
+        mContext = context;
+    }
 
     @Override
     public int getItemCount() {
@@ -42,14 +50,14 @@ public class SubscriptionAdapter extends
 
     @Override
     public void onBindViewHolder(SubscriptionViewHolder holder, int position) {
-        if(!mCursor.moveToPosition(position)){
+        if (!mCursor.moveToPosition(position)) {
             throw new IllegalStateException(CURSOR_MOVE_ERROR + position);
         }
         String title = mCursor.getString(mCursor.getColumnIndex(SubscriptionsColumns.SR_NAME));
         holder.title.setText(title);
     }
 
-    public void swapCursor(Cursor newCursor){
+    public void swapCursor(Cursor newCursor) {
         this.mCursor = newCursor;
         notifyDataSetChanged();
     }
@@ -65,6 +73,16 @@ public class SubscriptionAdapter extends
         public SubscriptionViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+
+        @OnClick(R.id.button_delete_subscription)
+        public void deleteSubscription() {
+            mCursor.moveToPosition(getAdapterPosition());
+            String name = mCursor.getString(mCursor.getColumnIndex(SubscriptionsColumns.SR_NAME));
+            mContext.getContentResolver().delete(
+                    RedditProvider.Subscriptions.withSubredditName(name),
+                    null,
+                    null);
         }
     }
 }

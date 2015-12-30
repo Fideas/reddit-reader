@@ -49,7 +49,7 @@ public class SubscribeActivity extends AppCompatActivity
         setContentView(R.layout.activity_subscribe);
         ButterKnife.bind(this);
 
-        mAdapter = new SubscriptionAdapter();
+        mAdapter = new SubscriptionAdapter(getApplicationContext());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
 
