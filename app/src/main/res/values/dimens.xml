@@ -11,4 +11,9 @@
 
     <!-- Lists' dimensions -->
     <dimen name="list_item_height">72dp</dimen>
+
+    <!--CardView dimensions -->
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="card_view_horizontal_padding">16dp</dimen>
+    <dimen name="card_view_vertical_padding">16dp</dimen>
 </resources>

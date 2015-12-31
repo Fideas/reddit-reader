@@ -27,7 +27,12 @@
         <TextView
             android:id="@+id/post_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/card_view_horizontal_padding"
+            android:paddingRight="@dimen/card_view_horizontal_padding"
+            android:paddingTop="@dimen/card_view_vertical_padding"
+            android:textColor="@color/colorPrimaryTextDark"
+            android:textSize="@dimen/text_size_small" />
     </android.support.v7.widget.CardView>
 
     <com.google.android.gms.ads.AdView
