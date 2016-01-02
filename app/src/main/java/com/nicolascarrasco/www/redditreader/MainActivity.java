@@ -25,16 +25,27 @@ import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements FetchPostTask.TaskDelegate {
 
     private static final String TOKEN_URL = "v1/access_token";
     private static final String DEVICE_ID = UUID.randomUUID().toString();
 
-    @Bind(R.id.card_view_post) CardView mCardView;
-    @Bind(R.id.adView) AdView mAdView;
-    @Bind(R.id.button_subscribe) AppCompatButton mSubscribeButton;
-    @Bind(R.id.post_title) TextView mTitleTextView;
+    @Bind(R.id.card_view_post)
+    CardView mCardView;
+    @Bind(R.id.adView)
+    AdView mAdView;
+    @Bind(R.id.button_subscribe)
+    AppCompatButton mSubscribeButton;
+    @Bind(R.id.post_title)
+    TextView mTitleTextView;
+
+    @OnClick(R.id.card_view_post)
+    public void launchDetailActivity() {
+        Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
