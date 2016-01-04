@@ -29,7 +29,6 @@
             android:authorities="com.nicolascarrasco.www.redditreader.data.RedditProvider"
             android:exported="false" />
 
-        <activity android:name=".DetailActivity"></activity>
     </application>
 
 </manifest>
