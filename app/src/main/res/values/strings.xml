@@ -3,6 +3,7 @@
 
     <!-- Main Activity's Strings -->
     <string name="button_subscribe">Subscribe to Subreddits</string>
+    <string name="button_next_post">Next Post</string>
 
     <!-- Subscribe Activity's Strings -->
     <string name="title_subscribe_activity">Your Subscriptions</string>

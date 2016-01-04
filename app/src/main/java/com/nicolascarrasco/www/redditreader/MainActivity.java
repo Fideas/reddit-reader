@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
     @Bind(R.id.adView) AdView mAdView;
     @Bind(R.id.button_subscribe) AppCompatButton mSubscribeButton;
     @Bind(R.id.post_title) TextView mTitleTextView;
+    @Bind(R.id.button_next_post) AppCompatButton mNextButton;
     private Post mPost;
 
     @OnClick(R.id.card_view_post)
@@ -43,6 +45,11 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
         intent.putExtra(Utility.PARCELABLE_KEY, mPost);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.button_next_post)
+    public void fetchNextPost(){
+        Toast.makeText(getApplicationContext(), "Fetching next post", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -106,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
             new FetchPostTask(this).execute(subreddit);
         } else {
             mCardView.setVisibility(View.GONE);
+            mNextButton.setVisibility(View.GONE);
             mSubscribeButton.setVisibility(View.VISIBLE);
         }
         Utility.closeCursor(cursor);
