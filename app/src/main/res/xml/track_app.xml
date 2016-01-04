@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ga_trackingId">UA-71961069-1</string>
+    <boolean name="ga_autoActivityTracking">false</boolean>
+
+    <screenName name="com.nicolascarrasco.www.redditreader.MainActivity">Show Post</screenName>
+    <screenName name="com.nicolascarrasco.www.redditreader.SubscribeActivity">
+        Subscribe Screen
+    </screenName>
+</resources>

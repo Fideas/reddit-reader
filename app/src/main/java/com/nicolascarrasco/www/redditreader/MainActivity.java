@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nicolascarrasco.www.redditreader.client.RedditRestClient;
 import com.nicolascarrasco.www.redditreader.data.FetchPostTask;
 import com.nicolascarrasco.www.redditreader.data.Post;
@@ -66,6 +68,14 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
         loadAdBanner();
         getAuthToken();
         fetchPost();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Tracker tracker = ((CustomApplication) getApplication()).getTracker();
+        tracker.setScreenName("Main Activity");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
