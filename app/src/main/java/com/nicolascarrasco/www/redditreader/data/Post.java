@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 /**
  * Created by Nicolás Carrasco on 30/12/2015.
+ * Class to represent a single reddit post
  */
 public class Post implements Parcelable {
     public static final Parcelable.Creator<Post> CREATOR = new Parcelable.Creator<Post>() {

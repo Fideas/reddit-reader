@@ -29,6 +29,19 @@
             android:authorities="com.nicolascarrasco.www.redditreader.data.RedditProvider"
             android:exported="false" />
 
+        <receiver android:name=".widget.RedditAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/reddit_app_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.RedditAppWidgetIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

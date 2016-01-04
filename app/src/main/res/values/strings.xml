@@ -29,4 +29,6 @@
     <!-- Console error messages -->
     <string name="cursor_move_to_position_error" translatable="false">
         Could not move cursor to position\u0020</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
