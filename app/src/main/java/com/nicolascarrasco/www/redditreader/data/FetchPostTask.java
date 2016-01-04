@@ -23,7 +23,7 @@ public class FetchPostTask extends AsyncTask<String, Void, Post> {
     private TaskDelegate mDelegate;
 
     public interface TaskDelegate {
-        void taskCompletitionResult(Post result);
+        void taskCompletionResult(Post result);
     }
 
     public FetchPostTask(TaskDelegate delegate){
@@ -119,6 +119,6 @@ public class FetchPostTask extends AsyncTask<String, Void, Post> {
 
     @Override
     protected void onPostExecute(Post post) {
-        mDelegate.taskCompletitionResult(post);
+        mDelegate.taskCompletionResult(post);
     }
 }

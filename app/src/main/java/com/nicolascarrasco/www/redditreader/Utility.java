@@ -7,6 +7,8 @@ import android.database.Cursor;
  */
 public class Utility {
 
+    public static final String PARCELABLE_KEY = "post_parcelable_key";
+
     public static String formatSubredditName(String subredditName) {
         return subredditName.substring(2, subredditName.length() - 2);
     }

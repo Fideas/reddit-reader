@@ -32,18 +32,16 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
     private static final String TOKEN_URL = "v1/access_token";
     private static final String DEVICE_ID = UUID.randomUUID().toString();
 
-    @Bind(R.id.card_view_post)
-    CardView mCardView;
-    @Bind(R.id.adView)
-    AdView mAdView;
-    @Bind(R.id.button_subscribe)
-    AppCompatButton mSubscribeButton;
-    @Bind(R.id.post_title)
-    TextView mTitleTextView;
+    @Bind(R.id.card_view_post) CardView mCardView;
+    @Bind(R.id.adView) AdView mAdView;
+    @Bind(R.id.button_subscribe) AppCompatButton mSubscribeButton;
+    @Bind(R.id.post_title) TextView mTitleTextView;
+    private Post mPost;
 
     @OnClick(R.id.card_view_post)
     public void launchDetailActivity() {
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+        intent.putExtra(Utility.PARCELABLE_KEY, mPost);
         startActivity(intent);
     }
 
@@ -114,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
     }
 
     @Override
-    public void taskCompletitionResult(Post result) {
+    public void taskCompletionResult(Post result) {
+        mPost = result;
         mTitleTextView.setText(result.getTitle());
     }
 }
