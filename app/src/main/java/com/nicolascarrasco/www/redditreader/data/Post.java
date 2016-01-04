@@ -22,6 +22,7 @@ public class Post implements Parcelable {
     private String mTitle;
     private String mAfter;
     private String mSubreddit;
+    private String mPermalink;
 
     public Post() {
     }
@@ -62,5 +63,11 @@ public class Post implements Parcelable {
 
     public void setSubreddit(String subreddit) {
         mSubreddit = subreddit;
+    }
+
+    public String getPermalink() { return mPermalink; }
+
+    public void setPermalink(String permalink){
+        mPermalink = permalink;
     }
 }

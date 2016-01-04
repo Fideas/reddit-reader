@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
     private Post mPost;
 
     @OnClick(R.id.card_view_post)
-    public void launchDetailActivity() {
-        Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-        intent.putExtra(Utility.PARCELABLE_KEY, mPost);
+    public void openPostInBrowser() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Utility.buildCommentsUri(mPost.getPermalink()));
         startActivity(intent);
     }
 

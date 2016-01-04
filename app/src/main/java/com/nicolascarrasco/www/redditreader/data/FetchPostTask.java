@@ -99,6 +99,8 @@ public class FetchPostTask extends AsyncTask<String, Void, Post> {
         final String REDDIT_DATA = "data";
         final String REDDIT_TITLE = "title";
         final String REDDIT_AFTER= "after";
+        final String REDDIT_SUBREDDIT = "subreddit";
+        final String REDDIT_PERMALINK = "permalink";
 
         JSONObject postsJson = new JSONObject(postsJsonString);
         JSONObject dataJson = postsJson.getJSONObject(REDDIT_DATA);
@@ -107,12 +109,14 @@ public class FetchPostTask extends AsyncTask<String, Void, Post> {
 
         String title = jsonPost.getString(REDDIT_TITLE);
         String after = dataJson.getString(REDDIT_AFTER);
-        String subreddit = jsonPost.getString("subreddit");
+        String subreddit = jsonPost.getString(REDDIT_SUBREDDIT);
+        String permalink = jsonPost.getString(REDDIT_PERMALINK);
 
         Post post = new Post();
         post.setTitle(title);
         post.setAfter(after);
         post.setSubreddit(subreddit);
+        post.setPermalink(permalink);
 
 
         return post;

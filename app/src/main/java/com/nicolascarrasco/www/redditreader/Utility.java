@@ -1,6 +1,7 @@
 package com.nicolascarrasco.www.redditreader;
 
 import android.database.Cursor;
+import android.net.Uri;
 
 /**
  * Created by Nicolás Carrasco on 30/12/2015.
@@ -17,5 +18,9 @@ public class Utility {
         if (null != cursor){
             cursor.close();
         }
+    }
+
+    public static Uri buildCommentsUri(String path){
+        return Uri.parse("http://i.reddit.com".concat(path));
     }
 }
