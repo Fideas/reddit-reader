@@ -20,6 +20,7 @@ public class Post implements Parcelable {
     };
 
     private String mTitle;
+    private String mAfter;
 
     public Post() {
     }
@@ -44,5 +45,13 @@ public class Post implements Parcelable {
 
     public void setTitle(String title) {
         mTitle = title;
+    }
+
+    public String getAfter() {
+        return mAfter;
+    }
+
+    public void setAfter(String after) {
+        mAfter = after;
     }
 }

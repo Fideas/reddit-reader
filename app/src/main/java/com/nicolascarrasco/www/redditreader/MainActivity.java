@@ -110,7 +110,9 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
             //keep going
             String subreddit = cursor.getString(
                     cursor.getColumnIndex(SubscriptionsColumns.SR_NAME));
-            new FetchPostTask(this).execute(subreddit);
+            String postAfter = cursor.getString(
+                    cursor.getColumnIndex(SubscriptionsColumns.POST_AFTER));
+            new FetchPostTask(this).execute(subreddit, postAfter);
         } else {
             mCardView.setVisibility(View.GONE);
             mNextButton.setVisibility(View.GONE);

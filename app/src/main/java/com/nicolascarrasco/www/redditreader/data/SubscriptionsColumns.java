@@ -2,6 +2,7 @@ package com.nicolascarrasco.www.redditreader.data;
 
 import net.simonvt.schematic.annotation.AutoIncrement;
 import net.simonvt.schematic.annotation.DataType;
+import net.simonvt.schematic.annotation.DefaultValue;
 import net.simonvt.schematic.annotation.NotNull;
 import net.simonvt.schematic.annotation.PrimaryKey;
 
@@ -18,4 +19,8 @@ public interface SubscriptionsColumns {
     @DataType(DataType.Type.TEXT)
     @NotNull
     String SR_NAME = "subreddit_name";
+
+    @DataType(DataType.Type.TEXT)
+    @DefaultValue("''")
+    String POST_AFTER = "post_after";
 }

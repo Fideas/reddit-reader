@@ -22,11 +22,7 @@ public class FetchPostTask extends AsyncTask<String, Void, Post> {
     private static final String LOG_TAG = FetchPostTask.class.getSimpleName();
     private TaskDelegate mDelegate;
 
-    public interface TaskDelegate {
-        void taskCompletionResult(Post result);
-    }
-
-    public FetchPostTask(TaskDelegate delegate){
+    public FetchPostTask(TaskDelegate delegate) {
         mDelegate = delegate;
     }
 
@@ -42,7 +38,9 @@ public class FetchPostTask extends AsyncTask<String, Void, Post> {
             Uri builder = Uri.parse("http://www.reddit.com/r").buildUpon()
                     .appendPath(subreddit)
                     .appendPath(".json")
-                    .build();
+                    .appendQueryParameter("limit", "1")
+                    .appendQueryParameter("after", params[1]).build();
+
             URL url = new URL(builder.toString());
 
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -104,15 +102,15 @@ public class FetchPostTask extends AsyncTask<String, Void, Post> {
         JSONObject postsJson = new JSONObject(postsJsonString);
         JSONObject dataJson = postsJson.getJSONObject(REDDIT_DATA);
         JSONArray childrenArray = dataJson.getJSONArray(REDDIT_CHILDREN);
+        JSONObject jsonPost = childrenArray.getJSONObject(0).getJSONObject(REDDIT_DATA);
 
-        Post post = new Post();;
+        String title = jsonPost.getString(REDDIT_TITLE);
+        String after = dataJson.getString("after");
 
-        for(int i = 0; i < 1; i++){
-            JSONObject jsonPost = childrenArray.getJSONObject(i).getJSONObject(REDDIT_DATA);
-            String title = jsonPost.getString(REDDIT_TITLE);
+        Post post = new Post();
+        post.setTitle(title);
+        post.setAfter(after);
 
-            post.setTitle(title);
-        }
 
         return post;
     }
@@ -120,5 +118,9 @@ public class FetchPostTask extends AsyncTask<String, Void, Post> {
     @Override
     protected void onPostExecute(Post post) {
         mDelegate.taskCompletionResult(post);
+    }
+
+    public interface TaskDelegate {
+        void taskCompletionResult(Post result);
     }
 }
