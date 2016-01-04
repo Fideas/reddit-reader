@@ -21,6 +21,7 @@ public class Post implements Parcelable {
 
     private String mTitle;
     private String mAfter;
+    private String mSubreddit;
 
     public Post() {
     }
@@ -53,5 +54,13 @@ public class Post implements Parcelable {
 
     public void setAfter(String after) {
         mAfter = after;
+    }
+
+    public String getSubreddit() {
+        return mSubreddit;
+    }
+
+    public void setSubreddit(String subreddit) {
+        mSubreddit = subreddit;
     }
 }

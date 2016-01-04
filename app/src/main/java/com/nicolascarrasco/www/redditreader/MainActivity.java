@@ -1,5 +1,6 @@
 package com.nicolascarrasco.www.redditreader;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -33,11 +33,16 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
     private static final String TOKEN_URL = "v1/access_token";
     private static final String DEVICE_ID = UUID.randomUUID().toString();
 
-    @Bind(R.id.card_view_post) CardView mCardView;
-    @Bind(R.id.adView) AdView mAdView;
-    @Bind(R.id.button_subscribe) AppCompatButton mSubscribeButton;
-    @Bind(R.id.post_title) TextView mTitleTextView;
-    @Bind(R.id.button_next_post) AppCompatButton mNextButton;
+    @Bind(R.id.card_view_post)
+    CardView mCardView;
+    @Bind(R.id.adView)
+    AdView mAdView;
+    @Bind(R.id.button_subscribe)
+    AppCompatButton mSubscribeButton;
+    @Bind(R.id.post_title)
+    TextView mTitleTextView;
+    @Bind(R.id.button_next_post)
+    AppCompatButton mNextButton;
     private Post mPost;
 
     @OnClick(R.id.card_view_post)
@@ -48,8 +53,9 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
     }
 
     @OnClick(R.id.button_next_post)
-    public void fetchNextPost(){
-        Toast.makeText(getApplicationContext(), "Fetching next post", Toast.LENGTH_LONG).show();
+    public void fetchNextPost() {
+        updateAfterField();
+        fetchPost();
     }
 
     @Override
@@ -119,6 +125,17 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
             mSubscribeButton.setVisibility(View.VISIBLE);
         }
         Utility.closeCursor(cursor);
+    }
+
+    private void updateAfterField() {
+        ContentValues values = new ContentValues();
+        values.put(SubscriptionsColumns.POST_AFTER, mPost.getAfter());
+
+        getApplicationContext().getContentResolver().update(
+                RedditProvider.Subscriptions.withSubredditName(mPost.getSubreddit()),
+                values,
+                null,
+                null);
     }
 
     @Override
