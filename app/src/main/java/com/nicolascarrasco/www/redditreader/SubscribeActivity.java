@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,9 @@ public class SubscribeActivity extends AppCompatActivity
     @Bind(R.id.recycler_view_display_subscriptions)
     RecyclerView mRecyclerView;
 
+    @Bind(R.id.subscribe_toolbar)
+    Toolbar mToolbar;
+
     private AddSubscriptionDialogFragment mDialogFragment;
     private SubscriptionAdapter mAdapter;
 
@@ -48,6 +52,7 @@ public class SubscribeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe);
         ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
 
         mAdapter = new SubscriptionAdapter(getApplicationContext());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

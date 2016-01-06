@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
     TextView mTitleTextView;
     @Bind(R.id.button_next_post)
     AppCompatButton mNextButton;
+    @Bind(R.id.main_toolbar)
+    Toolbar mToolbar;
     private Post mPost;
 
     @OnClick(R.id.card_view_post)
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements FetchPostTask.Tas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
         loadAdBanner();
         getAuthToken();
         fetchPost();
